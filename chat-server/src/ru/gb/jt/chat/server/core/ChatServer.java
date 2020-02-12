@@ -6,9 +6,6 @@ import ru.gb.jt.network.ServerSocketThreadListener;
 import ru.gb.jt.network.SocketThread;
 import ru.gb.jt.network.SocketThreadListener;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
@@ -20,7 +17,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private final ChatServerListener listener;
     private ServerSocketThread server;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
-    public static final int NONAUTHORISEDSOCKETTIMEOUT = 12000;
+    public static final int ACTIVITYTIMEOUT = 12000;
     private Vector<SocketThread> clients = new Vector<>();
     private Thread checkActivity;
 
@@ -38,7 +35,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     ClientThread client;
                     for (int i = 0; i < clients.size(); i++) {
                         client = (ClientThread) clients.get(i);
-                        if (!client.isAuthorized() && (System.currentTimeMillis() - client.getCreateTime()) > NONAUTHORISEDSOCKETTIMEOUT) {
+                        if (!client.isAuthorized() && (System.currentTimeMillis() - client.getCreateTime()) > ACTIVITYTIMEOUT) {
                             client.sendMessage(Library.AUTH_DENIED+Library.DELIMITER+"Your connection was closed");
                             clients.get(i).close();
                             clients.remove(i);
