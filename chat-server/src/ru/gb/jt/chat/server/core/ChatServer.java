@@ -17,9 +17,11 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private final ChatServerListener listener;
     private ServerSocketThread server;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
+
     public static final int ACTIVITYTIMEOUT = 12000;
     private Vector<SocketThread> clients = new Vector<>();
     private Thread checkActivity;
+
 
     public ChatServer(ChatServerListener listener) {
         this.listener = listener;
@@ -27,7 +29,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     public void start(int port) {
         if (server != null && server.isAlive())
-            putLog("Server already started");
+
         else {
             server = new ServerSocketThread(this, "Server", port, 2000);
             checkActivity = new Thread() {
@@ -61,6 +63,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             };
             checkActivity.start();
         }
+
     }
 
     public void stop() {
@@ -79,7 +82,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     /**
      * Server methods
+
      */
+
 
     @Override
     public void onServerStart(ServerSocketThread thread) {
@@ -101,6 +106,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     public void onServerSocketCreated(ServerSocketThread thread, ServerSocket server) {
         putLog("Server socket created");
 
+
+
+=======
 
     }
 
@@ -125,7 +133,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     /**
      * Socket methods
+
      */
+
 
     @Override
     public synchronized void onSocketStart(SocketThread thread, Socket socket) {
@@ -137,11 +147,13 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     public synchronized void onSocketStop(SocketThread thread) {
         ClientThread client = (ClientThread) thread;
         clients.remove(thread);
+
         if (client.isAuthorized() && !client.isReconnecting()) {
             sendToAuthClients(Library.getTypeBroadcast("Server",
                     client.getNickname() + " disconnected"));
         }
         else putLog("Неудачная попытка входа на "+client.getSocket().toString()+".\nСокет был закрыт по таймауту;");
+
         sendToAuthClients(Library.getUserList(getUsers()));
     }
 
@@ -200,7 +212,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         }
     }
 
+
     // launch4j
+
     private void sendToAuthClients(String msg) {
         for (int i = 0; i < clients.size(); i++) {
             ClientThread client = (ClientThread) clients.get(i);
