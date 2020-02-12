@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3ccf6067-64c5-445d-9110-ec60aa294889" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="leight" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1WU7GpZVp0Esjmvq4eLX4TC4UhY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="jdk.selected.JAVA_MODULE" value="11" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/chat-server" />
+      <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/lfive/home" />
+      <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/lfive/online/chat" />
+      <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/lthree/home" />
+      <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/ltwo/home" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.gb.jt.chat.client" />
+      <recent name="ru.gb.jt.chat.server.gui" />
+      <recent name="ru.gb.jt.chat.server.core" />
+      <recent name="ru.gb.jt.network" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/lone/online/circles" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ServerGUI">
+    <configuration name="ClientGUI" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.gb.jt.chat.client.ClientGUI" />
+      <module name="chat-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.gb.jt.chat.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EchoServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.gb.jtwo.lsix.online.EchoServer" />
+      <module name="GBJ2HW8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.gb.jtwo.lsix.online.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.gb.jtwo.leight.online.Main" />
+      <module name="GBJ2HW8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.gb.jtwo.leight.online.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.gb.jt.chat.server.gui.ServerGUI" />
+      <module name="chat-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.gb.jt.chat.server.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.gb.jtwo.lsix.online.SimpleClient" />
+      <module name="GBJ2HW8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.gb.jtwo.lsix.online.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.ClientGUI" />
+      <item itemvalue="Application.EchoServer" />
+      <item itemvalue="Application.Main (1)" />
+      <item itemvalue="Application.ServerGUI" />
+      <item itemvalue="Application.SimpleClient" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SimpleClient" />
+        <item itemvalue="Application.ServerGUI" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.EchoServer" />
+        <item itemvalue="Application.ClientGUI" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ccf6067-64c5-445d-9110-ec60aa294889" name="Default Changelist" comment="" />
+      <created>1579192227049</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579192227049</updated>
+    </task>
+    <task id="LOCAL-00001" summary="initial">
+      <created>1579537480332</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1579537480333</updated>
+    </task>
+    <task id="LOCAL-00002" summary="initial">
+      <created>1579537508671</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579537508671</updated>
+    </task>
+    <task id="LOCAL-00003" summary="firstHome">
+      <created>1579537657387</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1579537657387</updated>
+    </task>
+    <task id="LOCAL-00004" summary="firstHome">
+      <created>1579537773218</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1579537773218</updated>
+    </task>
+    <task id="LOCAL-00005" summary="second online">
+      <created>1579588727551</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1579588727551</updated>
+    </task>
+    <task id="LOCAL-00006" summary="second home">
+      <created>1579789872959</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1579789872959</updated>
+    </task>
+    <task id="LOCAL-00007" summary="third online">
+      <created>1579808103925</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1579808103925</updated>
+    </task>
+    <task id="LOCAL-00008" summary="third home">
+      <created>1580140971342</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1580140971342</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fourth online">
+      <created>1580151816289</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1580151816289</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fourth home">
+      <created>1580400279740</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1580400279740</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fourth home">
+      <created>1580746549229</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1580746549229</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fifth online">
+      <created>1580746567343</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1580746567343</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fifth home">
+      <created>1580747301669</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1580747301669</updated>
+    </task>
+    <task id="LOCAL-00014" summary="sixth online">
+      <created>1581006514257</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1581006514257</updated>
+    </task>
+    <task id="LOCAL-00015" summary="sixth online upd">
+      <created>1581010969060</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1581010969061</updated>
+    </task>
+    <task id="LOCAL-00016" summary="seven online">
+      <created>1581018447122</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1581018447122</updated>
+    </task>
+    <task id="LOCAL-00017" summary="GBJ2HW8 complete">
+      <created>1581502265015</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1581502265015</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial" />
+    <MESSAGE value="firstHome" />
+    <MESSAGE value="second online" />
+    <MESSAGE value="second home" />
+    <MESSAGE value="third online" />
+    <MESSAGE value="third home" />
+    <MESSAGE value="fourth online" />
+    <MESSAGE value="fourth home" />
+    <MESSAGE value="fifth online" />
+    <MESSAGE value="fifth home" />
+    <MESSAGE value="sixth online" />
+    <MESSAGE value="sixth online upd" />
+    <MESSAGE value="seven online" />
+    <MESSAGE value="GBJ2HW8 complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="GBJ2HW8 complete" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="274" y="210" key="#Project_Structure" timestamp="1581493915125">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="274" y="210" key="#Project_Structure/0.0.1858.1080@0.0.1858.1080" timestamp="1581493915125" />
+    <state x="248" y="213" key="#Project_Structure/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1580749546520" />
+    <state x="98" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581361953463">
+      <screen x="0" y="23" width="1680" height="978" />
+    </state>
+    <state x="98" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581361953463" />
+    <state x="523" y="258" key="#com.intellij.ide.util.MemberChooser" timestamp="1581501516235">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="523" y="258" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080@0.0.1858.1080" timestamp="1581501516235" />
+    <state x="473" y="257" key="#com.intellij.ide.util.MemberChooser/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581361603087" />
+    <state x="396" y="338" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1581363268157">
+      <screen x="0" y="23" width="1680" height="978" />
+    </state>
+    <state x="396" y="338" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363268157" />
+    <state x="1126" y="484" width="490" height="596" key="#xdebugger.evaluate" timestamp="1581500979451">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="1126" y="484" width="490" height="596" key="#xdebugger.evaluate/0.0.1858.1080@0.0.1858.1080" timestamp="1581500979451" />
+    <state x="413" y="93" key="CommitChangelistDialog2" timestamp="1581502262067">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="413" y="93" key="CommitChangelistDialog2/0.0.1858.1080@0.0.1858.1080" timestamp="1581502262067" />
+    <state x="373" y="107" key="CommitChangelistDialog2/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581010967620" />
+    <state x="373" y="107" key="CommitChangelistDialog2/0.23.1680.978@0.23.1680.978" timestamp="1581018446559" />
+    <state x="697" y="371" key="FileChooserDialogImpl" timestamp="1581487847292">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="697" y="371" key="FileChooserDialogImpl/0.0.1858.1080@0.0.1858.1080" timestamp="1581487847292" />
+    <state width="1815" height="295" key="GridCell.Tab.0.bottom" timestamp="1581502221702">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1205" height="137" key="GridCell.Tab.0.bottom/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478556" />
+    <state width="1254" height="78" key="GridCell.Tab.0.bottom/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
+    <state width="1815" height="295" key="GridCell.Tab.0.center" timestamp="1581502221702">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1205" height="137" key="GridCell.Tab.0.center/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478555" />
+    <state width="1254" height="78" key="GridCell.Tab.0.center/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
+    <state width="1815" height="295" key="GridCell.Tab.0.left" timestamp="1581502221702">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1205" height="137" key="GridCell.Tab.0.left/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478553" />
+    <state width="1254" height="78" key="GridCell.Tab.0.left/0.23.1680.978@0.23.1680.978" timestamp="1581090052306" />
+    <state width="1815" height="295" key="GridCell.Tab.0.right" timestamp="1581502221702">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1205" height="137" key="GridCell.Tab.0.right/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478556" />
+    <state width="1254" height="78" key="GridCell.Tab.0.right/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
+    <state width="1815" height="364" key="GridCell.Tab.1.bottom" timestamp="1581500988304">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1581500988304" />
+    <state width="1815" height="364" key="GridCell.Tab.1.center" timestamp="1581500988304">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.center/0.0.1858.1080@0.0.1858.1080" timestamp="1581500988304" />
+    <state width="1815" height="364" key="GridCell.Tab.1.left" timestamp="1581500988304">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.left/0.0.1858.1080@0.0.1858.1080" timestamp="1581500988304" />
+    <state width="1815" height="364" key="GridCell.Tab.1.right" timestamp="1581500988304">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1815" height="364" key="GridCell.Tab.1.right/0.0.1858.1080@0.0.1858.1080" timestamp="1581500988304" />
+    <state x="397" y="204" key="SettingsEditor" timestamp="1581487936028">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="397" y="204" key="SettingsEditor/0.0.1858.1080@0.0.1858.1080" timestamp="1581487936028" />
+    <state x="147" y="129" key="SettingsEditor/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363400898" />
+    <state x="398" y="307" key="extract.method.dialog" timestamp="1581016902438">
+      <screen x="0" y="23" width="1680" height="978" />
+    </state>
+    <state x="398" y="307" key="extract.method.dialog/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581016902438" />
+    <state x="647" y="332" key="git4idea.merge.GitPullDialog" timestamp="1581491996288">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="647" y="332" key="git4idea.merge.GitPullDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1581491996288" />
+    <state x="28" y="246" key="new project wizard" timestamp="1581487930091">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="28" y="246" key="new project wizard/0.0.1858.1080@0.0.1858.1080" timestamp="1581487930091" />
+    <state x="25" y="246" key="new project wizard/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1580748906568" />
+    <state x="357" y="255" key="run.anything.popup" timestamp="1581488479903">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="357" y="255" key="run.anything.popup/0.0.1858.1080@0.0.1858.1080" timestamp="1581488479903" />
+    <state x="323" y="254" key="run.anything.popup/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581017249339" />
+    <state x="346" y="293" width="741" height="747" key="search.everywhere.popup" timestamp="1581488711943">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="346" y="293" width="741" height="747" key="search.everywhere.popup/0.0.1858.1080@0.0.1858.1080" timestamp="1581488711943" />
+    <state x="313" y="288" width="670" height="676" key="search.everywhere.popup/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581352338273" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/network/src/ru/gb/jt/network/SocketThread.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/chat-server/src/ru/gb/jt/chat/server/core/ChatServer.java</url>
+          <line>166</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="starttime-System.currentTimeMillis()" language="JAVA" />
+        <watch expression="Thread[Thread-0,6,main]" language="JAVA" />
+        <watch expression="clients" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
