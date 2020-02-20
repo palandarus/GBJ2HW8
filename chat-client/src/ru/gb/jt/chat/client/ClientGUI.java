@@ -22,7 +22,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private final JTextArea log = new JTextArea();
     private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
-    private final JTextField tfIPAddress = new JTextField("95.84.209.91");
+    //    private final JTextField tfIPAddress = new JTextField("95.84.209.91");
+    private final JTextField tfIPAddress = new JTextField("127.0.0.1");
+
     private final JTextField tfPort = new JTextField("8189");
     private final JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
     private final JTextField tfLogin = new JTextField("ivan");
@@ -165,7 +167,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     /**
      * Socket thread listener methods
-     * */
+     */
+
 
     @Override
     public void onSocketStart(SocketThread thread, Socket socket) {
@@ -208,7 +211,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 setTitle(WINDOW_TITLE + " entered with nickname: " + arr[1]);
                 break;
             case Library.AUTH_DENIED:
-                putLog(msg);
+
+                putLog(msg.replace(Library.DELIMITER," "));
+
                 break;
             case Library.MSG_FORMAT_ERROR:
                 putLog(msg);

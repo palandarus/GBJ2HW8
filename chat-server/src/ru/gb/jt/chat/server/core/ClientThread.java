@@ -11,6 +11,9 @@ public class ClientThread extends SocketThread {
     private boolean isAuthorized;
     private boolean isReconnecting;
 
+    private long createTime;
+
+
     public boolean isReconnecting() {
         return isReconnecting;
     }
@@ -22,6 +25,14 @@ public class ClientThread extends SocketThread {
 
     public ClientThread(SocketThreadListener listener, String name, Socket socket) {
         super(listener, name, socket);
+
+        this.createTime=System.currentTimeMillis();
+    }
+
+    public long getCreateTime() {
+        return createTime;
+
+
     }
 
     public String getNickname() {
@@ -40,7 +51,9 @@ public class ClientThread extends SocketThread {
 
     void authFail() {
         sendMessage(Library.getAuthDenied());
-        close();
+
+//        close();
+
     }
 
     void msgFormatError(String msg) {
