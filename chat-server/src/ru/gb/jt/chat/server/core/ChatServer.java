@@ -28,7 +28,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     }
 
     public void start(int port) {
-        if (server != null && server.isAlive())
+        if (server != null && server.isAlive()) System.out.println("Server is already started");
 
         else {
             server = new ServerSocketThread(this, "Server", port, 2000);
@@ -108,7 +108,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
 
 
-=======
+
 
     }
 

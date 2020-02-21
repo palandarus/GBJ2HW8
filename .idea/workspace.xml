@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ccf6067-64c5-445d-9110-ec60aa294889" name="Default Changelist" comment="" />
+    <list default="true" id="3ccf6067-64c5-445d-9110-ec60aa294889" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/ru/gb/jt/chat/server/core/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/gb/jt/chat/server/core/ChatServer.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +22,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="leight" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
@@ -35,6 +38,12 @@
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="221" />
+    <option name="y" value="165" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectId" id="1WU7GpZVp0Esjmvq4eLX4TC4UhY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -47,6 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -73,7 +83,7 @@
       <recent name="$PROJECT_DIR$/src/ru/gb/jtwo/lone/online/circles" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerGUI">
+  <component name="RunManager" selected="Application.ClientGUI">
     <configuration name="ClientGUI" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.gb.jt.chat.client.ClientGUI" />
       <module name="chat-client" />
@@ -148,11 +158,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SimpleClient" />
+        <item itemvalue="Application.ClientGUI" />
         <item itemvalue="Application.ServerGUI" />
+        <item itemvalue="Application.SimpleClient" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.EchoServer" />
-        <item itemvalue="Application.ClientGUI" />
       </list>
     </recent_temporary>
   </component>
@@ -313,6 +323,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
@@ -364,28 +388,28 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="697" y="371" key="FileChooserDialogImpl/0.0.1858.1080@0.0.1858.1080" timestamp="1581487847292" />
-    <state width="1815" height="295" key="GridCell.Tab.0.bottom" timestamp="1581502221702">
+    <state width="1815" height="295" key="GridCell.Tab.0.bottom" timestamp="1582264399011">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1582264399011" />
     <state width="1205" height="137" key="GridCell.Tab.0.bottom/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478556" />
     <state width="1254" height="78" key="GridCell.Tab.0.bottom/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
-    <state width="1815" height="295" key="GridCell.Tab.0.center" timestamp="1581502221702">
+    <state width="1815" height="295" key="GridCell.Tab.0.center" timestamp="1582264399011">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1582264399011" />
     <state width="1205" height="137" key="GridCell.Tab.0.center/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478555" />
     <state width="1254" height="78" key="GridCell.Tab.0.center/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
-    <state width="1815" height="295" key="GridCell.Tab.0.left" timestamp="1581502221702">
+    <state width="1815" height="295" key="GridCell.Tab.0.left" timestamp="1582264399011">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1582264399011" />
     <state width="1205" height="137" key="GridCell.Tab.0.left/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478553" />
     <state width="1254" height="78" key="GridCell.Tab.0.left/0.23.1680.978@0.23.1680.978" timestamp="1581090052306" />
-    <state width="1815" height="295" key="GridCell.Tab.0.right" timestamp="1581502221702">
+    <state width="1815" height="295" key="GridCell.Tab.0.right" timestamp="1582264399011">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
-    <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1581502221702" />
+    <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1582264399011" />
     <state width="1205" height="137" key="GridCell.Tab.0.right/0.23.1680.978/1680.23.1920.1057@0.23.1680.978" timestamp="1581363478556" />
     <state width="1254" height="78" key="GridCell.Tab.0.right/0.23.1680.978@0.23.1680.978" timestamp="1581090052307" />
     <state width="1815" height="364" key="GridCell.Tab.1.bottom" timestamp="1581500988304">
@@ -438,12 +462,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/network/src/ru/gb/jt/network/SocketThread.java</url>
-          <line>57</line>
+          <line>59</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/chat-server/src/ru/gb/jt/chat/server/core/ChatServer.java</url>
-          <line>166</line>
+          <line>178</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
