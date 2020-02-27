@@ -11,8 +11,10 @@ public class Library {
     * */
     public static final String DELIMITER = "±";
     public static final String AUTH_REQUEST = "/auth_request";
+    public static final String REG_REQUEST = "/reg_request";
     public static final String AUTH_ACCEPT = "/auth_accept";
     public static final String AUTH_DENIED = "/auth_denied";
+    public static final String REG_DENIED = "/reg_denied";
     public static final String MSG_FORMAT_ERROR = "/msg_format_error";
     // если мы вдруг не поняли, что за сообщение и не смогли разобрать
     public static final String TYPE_BROADCAST = "/bcast";
@@ -32,12 +34,19 @@ public class Library {
         return AUTH_REQUEST + DELIMITER + login + DELIMITER + password;
     }
 
+    public static String getRegRequest(String login, String password, String nickname) {
+        return REG_REQUEST + DELIMITER + login + DELIMITER + password + DELIMITER + nickname;
+    }
+
     public static String getAuthAccept(String nickname) {
         return AUTH_ACCEPT + DELIMITER + nickname;
     }
 
     public static String getAuthDenied() {
         return AUTH_DENIED;
+    }
+    public static String getRegDenied() {
+        return REG_DENIED+DELIMITER;
     }
 
     public static String getMsgFormatError(String message) {

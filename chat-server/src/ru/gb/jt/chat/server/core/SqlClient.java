@@ -35,5 +35,34 @@ public class SqlClient {
         }
         return null;
     }
+    synchronized static Boolean isBusyNickame(String nickname) {
+        String query = String.format("select nickname from users where nickname='%s'", nickname);
+        try (ResultSet set = statement.executeQuery(query)) {
+            if (set.next())
+                return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+    synchronized static Boolean isBusyLogin(String login) {
+        String query = String.format("select login from users where login='%s'", login);
+        try (ResultSet set = statement.executeQuery(query)) {
+            if (set.next())
+                return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
+    synchronized static boolean addNewUser(String login, String password, String nickname) {
+        String query = String.format("insert into users(login, password, nickname) values('%s','%s','%s')", login,password,nickname);
+        try  {
+            return statement.execute(query);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
