@@ -5,6 +5,8 @@ import ru.gb.jt.network.SocketThread;
 import ru.gb.jt.network.SocketThreadListener;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +17,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
-public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
+public class ClientGUI extends JFrame implements ActionListener, ListSelectionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
 
     private static final int WIDTH = 600;
     private static final int HEIGHT = 300;
+    private String nickname;
 
     private final JTextArea log = new JTextArea();
     private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
@@ -30,6 +33,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JTextField tfLogin = new JTextField("ivan");
     private final JPasswordField tfPassword = new JPasswordField("123");
     private final JButton btnLogin = new JButton("Login");
+    private final JButton btnRegister = new JButton("Register");
 
     private final JPanel panelBottom = new JPanel(new BorderLayout());
     private final JButton btnDisconnect = new JButton("<html><b>Disconnect</b></html>");
@@ -53,19 +57,24 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         JScrollPane scrollLog = new JScrollPane(log);
         JScrollPane scrollUser = new JScrollPane(userList);
         scrollUser.setPreferredSize(new Dimension(100, 0));
+        btnLogin.setPreferredSize(new Dimension(100, 0));
+        btnRegister.setPreferredSize(new Dimension(100, 0));
         cbAlwaysOnTop.addActionListener(this);
         btnSend.addActionListener(this);
         tfMessage.addActionListener(this);
         btnLogin.addActionListener(this);
+        btnRegister.addActionListener(this);
         btnDisconnect.addActionListener(this);
+        userList.addListSelectionListener(this);
         panelBottom.setVisible(false);
 
         panelTop.add(tfIPAddress);
         panelTop.add(tfPort);
-        panelTop.add(cbAlwaysOnTop);
         panelTop.add(tfLogin);
         panelTop.add(tfPassword);
+        panelTop.add(cbAlwaysOnTop);
         panelTop.add(btnLogin);
+        panelTop.add(btnRegister);
         panelBottom.add(btnDisconnect, BorderLayout.WEST);
         panelBottom.add(tfMessage, BorderLayout.CENTER);
         panelBottom.add(btnSend, BorderLayout.EAST);
@@ -85,6 +94,15 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         } catch (IOException e) {
             showException(Thread.currentThread(), e);
         }
+    }
+
+    public void register(){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() { // Event Dispatching Thread
+                new ClientGUI();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -107,7 +125,10 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             connect();
         } else if (src == btnDisconnect) {
             socketThread.close();
-        } else {
+        } else if (src == btnRegister) {
+            register();
+        }
+        else {
             throw new RuntimeException("Unknown source: " + src);
         }
     }
@@ -209,10 +230,11 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         switch (msgType) {
             case Library.AUTH_ACCEPT:
                 setTitle(WINDOW_TITLE + " entered with nickname: " + arr[1]);
+                nickname=arr[1];
                 break;
             case Library.AUTH_DENIED:
 
-                putLog(msg.replace(Library.DELIMITER," "));
+                putLog(msg.replace(Library.DELIMITER, " "));
 
                 break;
             case Library.MSG_FORMAT_ERROR:
@@ -234,4 +256,19 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 throw new RuntimeException("Unknown message type: " + msg);
         }
     }
+
+    @Override
+    public void valueChanged(ListSelectionEvent listSelectionEvent) {
+        Object element=userList.getSelectedValue();
+        if (((String)element).equals(nickname)){
+                System.out.println("hi");
+            }
+
+    }
+
+    /**
+     *
+     * */
+
+
 }
