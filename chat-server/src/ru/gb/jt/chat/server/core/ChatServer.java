@@ -148,7 +148,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     client.getNickname() + " disconnected"));
         } else if (client.isRegistering()) {
             putLog("Неудачная попытка регистрации " + client.getSocket().toString());
-        } else
+        }else if(client.isRenaming()){
+            putLog("Неудачная попытка изменения ника " + client.getSocket().toString());
+        }else
             putLog("Неудачная попытка входа на " + client.getSocket().toString() + ".\nСокет был закрыт по таймауту;");
 
         sendToAuthClients(Library.getUserList(getUsers()));
@@ -226,6 +228,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                 sendToAuthClients(Library.getTypeBroadcast(
                         client.getNickname(), arr[1]));
                 break;
+                case Library.RENAMING_REQUEST
             default:
                 client.sendMessage(Library.getMsgFormatError(msg));
         }

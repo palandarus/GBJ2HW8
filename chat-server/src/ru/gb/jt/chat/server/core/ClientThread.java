@@ -11,6 +11,7 @@ public class ClientThread extends SocketThread {
     private boolean isAuthorized;
     private boolean isReconnecting;
     private boolean isRegistering;
+    private boolean isRenaming;
 
     private long createTime;
 
@@ -22,6 +23,7 @@ public class ClientThread extends SocketThread {
     void reconnect() {
         isReconnecting = true;
         isRegistering = false;
+        isRenaming=false;
         close();
     }
 
@@ -48,10 +50,16 @@ public class ClientThread extends SocketThread {
     public boolean isRegistering() {
         return isRegistering;
     }
+    public boolean isRenaming() {
+        return isRenaming;
+    }
+
+
 
     void authAccept(String nickname) {
         isAuthorized = true;
         isRegistering = false;
+        isRenaming=false;
         this.nickname = nickname;
         sendMessage(Library.getAuthAccept(nickname));
     }
@@ -66,6 +74,13 @@ public class ClientThread extends SocketThread {
     void regFail(String msg) {
         isRegistering = true;
         sendMessage(Library.getRegDenied()+msg);
+
+//        close();
+
+    }
+    void chNickFail(String msg) {
+        isRenaming = true;
+        sendMessage(Library.getRenDenied()+msg);
 
 //        close();
 

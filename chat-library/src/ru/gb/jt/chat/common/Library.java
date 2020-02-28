@@ -12,9 +12,11 @@ public class Library {
     public static final String DELIMITER = "±";
     public static final String AUTH_REQUEST = "/auth_request";
     public static final String REG_REQUEST = "/reg_request";
+    public static final String RENAMING_REQUEST = "/reg_rename";
     public static final String AUTH_ACCEPT = "/auth_accept";
     public static final String AUTH_DENIED = "/auth_denied";
     public static final String REG_DENIED = "/reg_denied";
+    public static final String REN_DENIED = "/ren_denied";
     public static final String MSG_FORMAT_ERROR = "/msg_format_error";
     // если мы вдруг не поняли, что за сообщение и не смогли разобрать
     public static final String TYPE_BROADCAST = "/bcast";
@@ -48,6 +50,9 @@ public class Library {
     public static String getRegDenied() {
         return REG_DENIED+DELIMITER;
     }
+    public static String getRenDenied() {
+        return REN_DENIED+DELIMITER;
+    }
 
     public static String getMsgFormatError(String message) {
         return MSG_FORMAT_ERROR + DELIMITER + message;
@@ -58,4 +63,7 @@ public class Library {
                 DELIMITER + src + DELIMITER + message;
     }
 
+    public static String getRenaimingRequest(String nickname) {
+        return RENAMING_REQUEST + DELIMITER +  nickname;
+    }
 }
