@@ -17,6 +17,8 @@ import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
 
 public class ClientGUI extends JFrame implements ActionListener, ListSelectionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
 
@@ -260,9 +262,14 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             case Library.USER_LIST:
                 String users = msg.substring(Library.USER_LIST.length() +
                         Library.DELIMITER.length());
-                String[] usersArr = users.split(Library.DELIMITER);
-                Arrays.sort(usersArr);
-                userList.setListData(usersArr);
+                Vector<String> userVector=new Vector<>();
+                userVector.addAll(Arrays.asList(users.split(Library.DELIMITER)));
+                Collections.sort(userVector);
+                userVector.remove(userVector.indexOf(nickname));
+                userVector.insertElementAt(nickname,0);
+                userList.setListData(userVector);
+
+
                 break;
             default:
                 throw new RuntimeException("Unknown message type: " + msg);
