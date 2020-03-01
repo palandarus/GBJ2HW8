@@ -1,6 +1,5 @@
 package ru.gb.jt.chat.client;
 
-import com.sun.jdi.JDIPermission;
 import ru.gb.jt.chat.common.Library;
 import ru.gb.jt.network.SocketThread;
 import ru.gb.jt.network.SocketThreadListener;
@@ -52,11 +51,11 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
     private final String WINDOW_TITLE = "Chat";
     private final String REGISTRATION_FORM_TITLE = "Register new User";
-    private final String CHANGE_NICKNAME_FORM_TITLE="Changing Nickname";
-    private final String CHANGE_NICKNAME_BUTTON_TEXT="Change Nickname";
-    private final String REGISTER_NEW_USER_BUTTON_TEXT="Register";
-    private ModalDialog registrationFrom = new ModalDialog(this, REGISTRATION_FORM_TITLE, true,REGISTER_NEW_USER_BUTTON_TEXT);
-    private ModalDialog changeNicknameForm = new ModalDialog(this,CHANGE_NICKNAME_FORM_TITLE,true,CHANGE_NICKNAME_BUTTON_TEXT);
+    private final String CHANGE_NICKNAME_FORM_TITLE = "Changing Nickname";
+    private final String CHANGE_NICKNAME_BUTTON_TEXT = "Change Nickname";
+    private final String REGISTER_NEW_USER_BUTTON_TEXT = "Register";
+    private ModalDialog registrationFrom = new ModalDialog(this, REGISTRATION_FORM_TITLE, true, REGISTER_NEW_USER_BUTTON_TEXT);
+    private ModalDialog renamingForm = new ModalDialog(this, CHANGE_NICKNAME_FORM_TITLE, true, CHANGE_NICKNAME_BUTTON_TEXT);
 
     private ClientGUI() {
         Thread.setDefaultUncaughtExceptionHandler(this);
@@ -113,15 +112,15 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
 
         registrationFrom.tfLogin.setText(tfLogin.getText());
         registrationFrom.tfNickname.setText(tfLogin.getText());
-        registrationFrom.tfPassword.setText(tfPassword.getText());
+        registrationFrom.tfPassword.setText(String.valueOf(tfPassword.getPassword()));
         registrationFrom.setVisible(true);
 
     }
 
-    public void changeNick(){
-        renaming=true;
-        changeNicknameForm.tfNickname.setText(nickname);
-        changeNicknameForm.setVisible(true);
+    public void rename() {
+        renaming = true;
+        renamingForm.tfNickname.setText(tfLogin.getText());
+        renamingForm.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -152,6 +151,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
     }
 
     private void sendMessage() {
+
         String msg = tfMessage.getText();
         String username = tfLogin.getText();
         if ("".equals(msg)) return;
@@ -159,6 +159,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         tfMessage.requestFocusInWindow();
         socketThread.sendMessage(Library.getTypeBcastClient(msg));
         //wrtMsgToLogFile(msg, username);
+
     }
 
     private void wrtMsgToLogFile(String msg, String username) {
@@ -232,14 +233,9 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         if ("".equals(nickname)) {
             thread.sendMessage(Library.getAuthRequest(login, password));
         } else {
-            if(renaming){
-                thread.sendMessage(Library.getRenaimingRequest(nickname));
-            }
-            else thread.sendMessage(Library.getRegRequest(login, password, nickname));
-        }
-       /* if(){
 
-        }*/
+            thread.sendMessage(Library.getRegRequest(login, password, nickname));
+        }
 
     }
 
@@ -258,8 +254,8 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         String msgType = arr[0];
         switch (msgType) {
             case Library.AUTH_ACCEPT:
-                setTitle(WINDOW_TITLE + " entered with nickname: " + arr[1]);
                 nickname = arr[1];
+                setTitle(WINDOW_TITLE + " entered with nickname: " + nickname);
                 registrationFrom.setVisible(false);
                 break;
             case Library.AUTH_DENIED:
@@ -268,7 +264,8 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
 
                 break;
             case Library.REG_DENIED:
-                new ErrorDialog(this, msg.replace(Library.DELIMITER, " "));
+                putLog(msg.replace(Library.DELIMITER, " "));
+                registrationFrom.errordiag.showMessageDialog(registrationFrom, msg.replace(Library.DELIMITER, " "), "Error", 2);
 //                throw new RuntimeException("Current user already exist: " + msg);
 
             case Library.MSG_FORMAT_ERROR:
@@ -289,11 +286,20 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
                     userVector.remove(userVector.indexOf(nickname));
                     userVector.insertElementAt(nickname, 0);
                 }
-
                 userList.setListData(userVector);
-
-
                 break;
+            case Library.REN_ACCEPT:
+                nickname = renamingForm.nickname;
+                renamingForm.setVisible(false);
+                putLog("Your nickname was changed to " + nickname);
+                setTitle(WINDOW_TITLE + " entered with nickname: " + nickname);
+                break;
+
+            case Library.REN_DENIED:
+                putLog(msg.replace(Library.DELIMITER, " "));
+                renamingForm.errordiag.showMessageDialog(renamingForm, msg.replace(Library.DELIMITER, " "), "Error", 2);
+                break;
+
             default:
                 throw new RuntimeException("Unknown message type: " + msg);
         }
@@ -303,14 +309,6 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
      * MouseEvent Listener methods
      */
 
-    @Override
-    public void valueChanged(ListSelectionEvent listSelectionEvent) {
-        Object element = userList.getSelectedValue();
-        if (((String) element).equals(nickname)) {
-            System.out.println("hi");
-        }
-
-    }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -347,6 +345,11 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
 
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+
+    }
+
     /**
      * PopUpMenu Class
      */
@@ -359,7 +362,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             nickChange.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    changeNick();
+                    rename();
                 }
             });
             this.add(nickChange);
@@ -375,21 +378,25 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         private static final int N_WIDTH = 600;
         private static final int N_HEIGHT = 100;
         private final JLabel lLogin = new JLabel("Input Login:");
-        private final JTextField tfLogin=new JTextField();
+        private final JTextField tfLogin = new JTextField();
         private final JLabel lNickname = new JLabel("Input Nickname:");
         private final JTextField tfNickname = new JTextField();
         private final JLabel lPassword = new JLabel("Input Password:");
-        private final JPasswordField tfPassword=new JPasswordField();
+        private final JPasswordField tfPassword = new JPasswordField();
         private final JPanel panelTop;
         private final JPanel panelBottom;
         private final JButton btnAccept = new JButton();
         private final ClientGUI parent;
+        private boolean renaming = false;
+        private boolean register = false;
+        private String nickname;
+        private JOptionPane errordiag = new JOptionPane();
 
         /**
          * Register new user
-         * */
+         */
 
-        public ModalDialog(Frame owner, String title, boolean modal,String btnName) {
+        public ModalDialog(Frame owner, String title, boolean modal, String btnName) {
             super(owner, title, modal);
             parent = (ClientGUI) owner;
             setLocationRelativeTo(null);
@@ -401,7 +408,8 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             btnAccept.setText(btnName);
             panelBottom.add(btnAccept);
 
-            if(btnName.equals(REGISTER_NEW_USER_BUTTON_TEXT)) {
+            if (btnName.equals(REGISTER_NEW_USER_BUTTON_TEXT)) {
+                register = true;
                 setSize(R_WIDTH, R_HEIGHT);
                 panelTop.setLayout(new GridLayout(2, 3));
                 panelBottom.setLayout(new GridLayout(1, 1));
@@ -411,7 +419,8 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
                 panelTop.add(tfLogin);
                 panelTop.add(tfPassword);
                 panelTop.add(tfNickname);
-            }else if(btnName.equals(CHANGE_NICKNAME_BUTTON_TEXT)){
+            } else if (btnName.equals(CHANGE_NICKNAME_BUTTON_TEXT)) {
+                renaming = true;
                 setSize(N_WIDTH, N_HEIGHT);
                 panelTop.setLayout(new GridLayout(1, 2));
                 panelBottom.setLayout(new GridLayout(1, 1));
@@ -423,48 +432,40 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             add(panelBottom, BorderLayout.SOUTH);
             btnAccept.addActionListener(this);
         }
-        /**
-         * Changing NickName         * */
 
+        public String getNickname() {
+            return nickname;
+        }
+
+        /**
+         * Changing NickName         *
+         */
 
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             Object src = actionEvent.getSource();
             if (src == btnAccept) {
-                parent.tfLogin.setText(tfLogin.getText());
-                parent.tfPassword.setText(tfPassword.getText());
-                parent.nickname = tfNickname.getText();
-                connect();
+                if (register) {
+                    parent.tfLogin.setText(tfLogin.getText());
+                    parent.tfPassword.setText(String.valueOf(tfPassword.getPassword()));
+                    parent.nickname = tfNickname.getText();
+                    parent.connect();
+
+                } else if (renaming) {
+                    String nick = tfNickname.getText();
+                    if (nick != null && !"".equals(nick)) {
+                        if (!nick.equals(parent.nickname))
+                            nickname = nick;
+                        parent.socketThread.sendMessage(Library.getRenaimingRequest(nickname));
+//                    } else new ErrorDialog(parent, "Nickname не заполнен");
+                    } else errordiag.showMessageDialog(parent, "Nickname can't be empty", "Error", 2);
+
+                }
             }
         }
     }
 
-    /**
-     * Error Dialog Window
-     */
-    public class ErrorDialog extends JDialog {
-        private static final int WIDTH = 600;
-        private static final int HEIGHT = 100;
-        private final JLabel errorMsg;
-        private final JPanel panelTop = new JPanel(new GridLayout(1, 1));
-        private final JPanel panelBottom = new JPanel(new GridLayout(1, 1));
-        private final JButton btnOk = new JButton("Ok");
-
-        public ErrorDialog(JFrame owner, String message) {
-            super(owner, "Произошла ошибка", true);
-
-            setLocationRelativeTo(null);
-            setSize(WIDTH, HEIGHT);
-            setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            Thread.setDefaultUncaughtExceptionHandler((Thread.UncaughtExceptionHandler) owner);
-            errorMsg = new JLabel(message);
-            panelTop.add(errorMsg);
-            panelBottom.add(btnOk);
-            add(panelTop, BorderLayout.NORTH);
-            setVisible(true);
-        }
 
 
-    }
 }

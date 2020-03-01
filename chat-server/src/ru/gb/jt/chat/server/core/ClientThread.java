@@ -63,6 +63,11 @@ public class ClientThread extends SocketThread {
         this.nickname = nickname;
         sendMessage(Library.getAuthAccept(nickname));
     }
+    void renAccept(String nickname) {
+        isRenaming=false;
+        this.nickname = nickname;
+        sendMessage(Library.getRenAccept(nickname));
+    }
 
     void authFail() {
         sendMessage(Library.getAuthDenied());
@@ -78,16 +83,16 @@ public class ClientThread extends SocketThread {
 //        close();
 
     }
-    void chNickFail(String msg) {
+
+    void renFail(String msg) {
         isRenaming = true;
         sendMessage(Library.getRenDenied()+msg);
-
-//        close();
-
     }
 
     void msgFormatError(String msg) {
         sendMessage(Library.getMsgFormatError(msg));
         close();
     }
+
+
 }

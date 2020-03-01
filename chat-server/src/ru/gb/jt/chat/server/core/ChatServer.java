@@ -18,7 +18,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private ServerSocketThread server;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
 
-    public static final int ACTIVITYTIMEOUT = 1200000;
+    public static final int ACTIVITYTIMEOUT = 1200;
     private Vector<SocketThread> clients = new Vector<>();
     private Thread checkActivity;
 
@@ -148,9 +148,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     client.getNickname() + " disconnected"));
         } else if (client.isRegistering()) {
             putLog("Неудачная попытка регистрации " + client.getSocket().toString());
-        }else if(client.isRenaming()){
+        } else if (client.isRenaming()) {
             putLog("Неудачная попытка изменения ника " + client.getSocket().toString());
-        }else
+        } else
             putLog("Неудачная попытка входа на " + client.getSocket().toString() + ".\nСокет был закрыт по таймауту;");
 
         sendToAuthClients(Library.getUserList(getUsers()));
@@ -182,18 +182,18 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         String nickname = SqlClient.getNickname(login, password);
         if (nickname == null) {
             if (arr[0].equals(Library.REG_REQUEST)) {
-                String nick=arr[3];
-                if(SqlClient.isBusyLogin(login)) {
+                String nick = arr[3];
+                if (SqlClient.isBusyLogin(login)) {
                     client.regFail("Login is busy");
-                }
-                else if(SqlClient.isBusyNickame(nick)) {
+                } else if (SqlClient.isBusyNickame(nick)) {
                     client.regFail("Nickname is busy");
-                }
-                else {
-                    SqlClient.addNewUser(login,password, arr[3]);
-                    client.authAccept(nick);
-                    sendToAuthClients(Library.getTypeBroadcast("Server", nick + " connected"));
-                    sendToAuthClients(Library.getUserList(getUsers()));
+                } else {
+                    if(SqlClient.addNewUser(login, password, arr[3])>0) {
+                        client.authAccept(nick);
+                        sendToAuthClients(Library.getTypeBroadcast("Server", nick + " connected"));
+                        sendToAuthClients(Library.getUserList(getUsers()));
+                    }
+                    else putLog("Failed Register new user attemp at "+client);
                 }
             } else {
                 putLog("Invalid login attempt: " + login);
@@ -202,7 +202,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             }
         } else {
             if (arr[0].equals(Library.REG_REQUEST)) {
-                client.regFail("User with login "+login+" already exist");
+                client.regFail("User with login " + login + " already exist");
                 return;
             } else {
                 ClientThread oldClient = findClientByNickname(nickname);
@@ -228,7 +228,15 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                 sendToAuthClients(Library.getTypeBroadcast(
                         client.getNickname(), arr[1]));
                 break;
-                case Library.RENAMING_REQUEST
+            case Library.RENAMING_REQUEST:
+                if (SqlClient.isBusyNickame(arr[1])) client.renFail("Nickname is busy");
+                else {
+                    if (SqlClient.setNickname(client.getNickname(), arr[1])!=0) {
+                        client.renAccept(arr[1]);
+                        sendToAuthClients(Library.getUserList(getUsers()));
+                    } else client.renFail("Something goes wrong with DB");
+                }
+                break;
             default:
                 client.sendMessage(Library.getMsgFormatError(msg));
         }

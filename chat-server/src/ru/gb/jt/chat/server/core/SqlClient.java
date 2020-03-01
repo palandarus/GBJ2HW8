@@ -56,10 +56,20 @@ public class SqlClient {
         return false;
     }
 
-    synchronized static boolean addNewUser(String login, String password, String nickname) {
+    synchronized static int addNewUser(String login, String password, String nickname) {
         String query = String.format("insert into users(login, password, nickname) values('%s','%s','%s')", login,password,nickname);
         try  {
-            return statement.execute(query);
+            return statement.executeUpdate(query);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int setNickname(String oldNick,String newNick) {
+        String query = String.format("UPDATE users set nickname='%s' where nickname='%s'", newNick, oldNick);
+        try  {
+            return statement.executeUpdate(query);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
