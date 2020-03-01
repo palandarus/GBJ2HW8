@@ -162,9 +162,9 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
 
     }
 
-    private void wrtMsgToLogFile(String msg, String username) {
+    private void wrtMsgToLogFile(String msg) {
         try (FileWriter out = new FileWriter("log.txt", true)) {
-            out.write(username + ": " + msg + "\n");
+            out.write(msg + "\n");
             out.flush();
         } catch (IOException e) {
             if (!shownIoErrors) {
@@ -183,6 +183,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
                 log.setCaretPosition(log.getDocument().getLength());
             }
         });
+        wrtMsgToLogFile(msg);
     }
 
     private void showException(Thread t, Throwable e) {
@@ -291,7 +292,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             case Library.REN_ACCEPT:
                 nickname = renamingForm.nickname;
                 renamingForm.setVisible(false);
-                putLog("Your nickname was changed to " + nickname);
+                putLog("Warning Server: Your nickname was changed to " + nickname);
                 setTitle(WINDOW_TITLE + " entered with nickname: " + nickname);
                 break;
 
