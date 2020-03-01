@@ -12,13 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class ClientGUI extends JFrame implements ActionListener, ListSelectionListener, Thread.UncaughtExceptionHandler, SocketThreadListener, MouseListener {
@@ -26,6 +26,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
     private static final int WIDTH = 600;
     private static final int HEIGHT = 300;
     private String nickname = "";
+    private static final String logFileName = "log.txt";
     private boolean renaming = false;
 
     private final JTextArea log = new JTextArea();
@@ -123,6 +124,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         renamingForm.setVisible(true);
     }
 
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -163,7 +165,8 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
     }
 
     private void wrtMsgToLogFile(String msg) {
-        try (FileWriter out = new FileWriter("log.txt", true)) {
+
+        try (FileWriter out = new FileWriter(logFileName, true)) {
             out.write(msg + "\n");
             out.flush();
         } catch (IOException e) {
@@ -174,7 +177,57 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         }
     }
 
-    private void putLog(String msg) {
+    private void readMsgFromLogFile() {
+
+        try (
+                FileReader in = new FileReader(logFileName)) {
+            long lineCount = getLinesNumber();
+            Scanner scanner = new Scanner(in);
+            int i = 0;
+            StringBuilder lastThousandlogLines = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                if ((lineCount-i) < 101)
+                    lastThousandlogLines.append(scanner.nextLine()+"\n");
+                else scanner.nextLine();
+                i++;
+            }
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    log.setText("");
+//                    log.setCaretPosition(log.getDocument().getLength());
+                }
+            });
+            putLog(lastThousandlogLines.toString(),true);
+            scanner.close();
+        } catch (IOException e) {
+            if (!shownIoErrors) {
+                shownIoErrors = true;
+                showException(Thread.currentThread(), e);
+            }
+        }
+    }
+
+    private long getLinesNumber() {
+        long lineCount = 0;
+        try (
+                FileReader in = new FileReader(logFileName)) {
+            Scanner scanner = new Scanner(in);
+            lineCount = scanner.findAll("\n").count();
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            wrtMsgToLogFile("Start");
+        } catch (IOException e) {
+            if (!shownIoErrors) {
+                shownIoErrors = true;
+                showException(Thread.currentThread(), e);
+            }
+        } finally {
+            return lineCount;
+        }
+    }
+
+    private void putLog(String msg, boolean fromLog) {
         if ("".equals(msg)) return;
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -183,7 +236,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
                 log.setCaretPosition(log.getDocument().getLength());
             }
         });
-        wrtMsgToLogFile(msg);
+        if(!fromLog) wrtMsgToLogFile(msg);
     }
 
     private void showException(Thread t, Throwable e) {
@@ -213,7 +266,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
 
     @Override
     public void onSocketStart(SocketThread thread, Socket socket) {
-        putLog("Start");
+        putLog("Start",false);
     }
 
     @Override
@@ -258,24 +311,25 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
                 nickname = arr[1];
                 setTitle(WINDOW_TITLE + " entered with nickname: " + nickname);
                 registrationFrom.setVisible(false);
+                readMsgFromLogFile();
                 break;
             case Library.AUTH_DENIED:
 
-                putLog(msg.replace(Library.DELIMITER, " "));
+                putLog(msg.replace(Library.DELIMITER, " "),false);
 
                 break;
             case Library.REG_DENIED:
-                putLog(msg.replace(Library.DELIMITER, " "));
+                putLog(msg.replace(Library.DELIMITER, " "),false);
                 registrationFrom.errordiag.showMessageDialog(registrationFrom, msg.replace(Library.DELIMITER, " "), "Error", 2);
 //                throw new RuntimeException("Current user already exist: " + msg);
 
             case Library.MSG_FORMAT_ERROR:
-                putLog(msg);
+                putLog(msg, false);
                 socketThread.close();
                 break;
             case Library.TYPE_BROADCAST:
                 putLog(DATE_FORMAT.format(Long.parseLong(arr[1])) +
-                        arr[2] + ": " + arr[3]);
+                        arr[2] + ": " + arr[3],false);
                 break;
             case Library.USER_LIST:
                 String users = msg.substring(Library.USER_LIST.length() +
@@ -292,12 +346,12 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             case Library.REN_ACCEPT:
                 nickname = renamingForm.nickname;
                 renamingForm.setVisible(false);
-                putLog("Warning Server: Your nickname was changed to " + nickname);
+                putLog("Warning Server: Your nickname was changed to " + nickname, false);
                 setTitle(WINDOW_TITLE + " entered with nickname: " + nickname);
                 break;
 
             case Library.REN_DENIED:
-                putLog(msg.replace(Library.DELIMITER, " "));
+                putLog(msg.replace(Library.DELIMITER, " "),false);
                 renamingForm.errordiag.showMessageDialog(renamingForm, msg.replace(Library.DELIMITER, " "), "Error", 2);
                 break;
 
@@ -466,7 +520,6 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
             }
         }
     }
-
 
 
 }
