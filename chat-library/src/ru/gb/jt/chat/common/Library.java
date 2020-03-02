@@ -25,6 +25,7 @@ public class Library {
     public static final String TYPE_BCAST_CLIENT = "/client_msg";
     public static final String USER_LIST = "/user_list";
 
+
     public static String getTypeBcastClient(String msg) {
         return TYPE_BCAST_CLIENT + DELIMITER + msg;
     }
