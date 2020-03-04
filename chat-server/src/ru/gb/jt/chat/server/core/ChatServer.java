@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatServer implements ServerSocketThreadListener, SocketThreadListener {
 
@@ -18,7 +20,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private ServerSocketThread server;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
 
-    public static final int ACTIVITYTIMEOUT = 1200;
+    public static final int ACTIVITYTIMEOUT = 12000;
     private Vector<SocketThread> clients = new Vector<>();
     private Thread checkActivity;
 
@@ -31,8 +33,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         if (server != null && server.isAlive()) System.out.println("Server is already started");
 
         else {
+
             server = new ServerSocketThread(this, "Server", port, 2000);
-            checkActivity = new Thread() {
+            /*checkActivity = new Thread() {
                 synchronized void check() {
                     ClientThread client;
                     for (int i = 0; i < clients.size(); i++) {
@@ -58,12 +61,43 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                             }
                         }
                     }
-
                 }
             };
-            checkActivity.start();
+            checkActivity.start();*/
         }
 
+    }
+
+    public void checkActivity() {
+        checkActivity = new Thread() {
+            synchronized void check() {
+                ClientThread client;
+                for (int i = 0; i < clients.size(); i++) {
+                    client = (ClientThread) clients.get(i);
+                    if (!client.isAuthorized() && (System.currentTimeMillis() - client.getCreateTime()) > ACTIVITYTIMEOUT) {
+                        client.sendMessage(Library.AUTH_DENIED + Library.DELIMITER + "Your connection was closed");
+                        clients.get(i).close();
+                        clients.remove(i);
+                    }
+                }
+            }
+
+            @Override
+            public void run() {
+
+                while (!isInterrupted()) {
+                    if (!clients.isEmpty()) {
+                        try {
+                            check();
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            putLog("Поток проверки не смог уснуть " + e.getMessage());
+                        }
+                    }
+                }
+            }
+        };
+        checkActivity.start();
     }
 
     public void stop() {
@@ -118,7 +152,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     public void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
         putLog("Client connected");
         String name = "SocketThread " + socket.getInetAddress() + ":" + socket.getPort();
-        new ClientThread(this, name, socket);
+       new ClientThread(this, name, socket);
 
     }
 
