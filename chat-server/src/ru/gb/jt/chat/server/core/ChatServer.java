@@ -18,7 +18,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private ServerSocketThread server;
     private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
 
-    public static final int ACTIVITYTIMEOUT = 12000;
+    public static final int ACTIVITYTIMEOUT = 1200;
     private Vector<SocketThread> clients = new Vector<>();
     private Thread checkActivity;
 
@@ -38,7 +38,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
                     for (int i = 0; i < clients.size(); i++) {
                         client = (ClientThread) clients.get(i);
                         if (!client.isAuthorized() && (System.currentTimeMillis() - client.getCreateTime()) > ACTIVITYTIMEOUT) {
-                            client.sendMessage(Library.AUTH_DENIED+Library.DELIMITER+"Your connection was closed");
+                            client.sendMessage(Library.AUTH_DENIED + Library.DELIMITER + "Your connection was closed");
                             clients.get(i).close();
                             clients.remove(i);
                         }
@@ -82,7 +82,6 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     /**
      * Server methods
-
      */
 
 
@@ -105,9 +104,6 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     @Override
     public void onServerSocketCreated(ServerSocketThread thread, ServerSocket server) {
         putLog("Server socket created");
-
-
-
 
 
     }
@@ -133,7 +129,6 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     /**
      * Socket methods
-
      */
 
 
@@ -151,8 +146,12 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         if (client.isAuthorized() && !client.isReconnecting()) {
             sendToAuthClients(Library.getTypeBroadcast("Server",
                     client.getNickname() + " disconnected"));
-        }
-        else putLog("Неудачная попытка входа на "+client.getSocket().toString()+".\nСокет был закрыт по таймауту;");
+        } else if (client.isRegistering()) {
+            putLog("Неудачная попытка регистрации " + client.getSocket().toString());
+        } else if (client.isRenaming()) {
+            putLog("Неудачная попытка изменения ника " + client.getSocket().toString());
+        } else
+            putLog("Неудачная попытка входа на " + client.getSocket().toString() + ".\nСокет был закрыт по таймауту;");
 
         sendToAuthClients(Library.getUserList(getUsers()));
     }
@@ -174,7 +173,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
     private void handleNonAuthMessage(ClientThread client, String msg) {
         String[] arr = msg.split(Library.DELIMITER);
-        if (arr.length != 3 || !arr[0].equals(Library.AUTH_REQUEST)) {
+        if (!arr[0].equals(Library.REG_REQUEST) && !arr[0].equals(Library.AUTH_REQUEST)) {
             client.msgFormatError(msg);
             return;
         }
@@ -182,21 +181,43 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         String password = arr[2];
         String nickname = SqlClient.getNickname(login, password);
         if (nickname == null) {
-            putLog("Invalid login attempt: " + login);
-            client.authFail();
-            return;
-        } else {
-            ClientThread oldClient = findClientByNickname(nickname);
-            client.authAccept(nickname);
-            if (oldClient == null) {
-                sendToAuthClients(Library.getTypeBroadcast("Server", nickname + " connected"));
+            if (arr[0].equals(Library.REG_REQUEST)) {
+                String nick = arr[3];
+                if (SqlClient.isBusyLogin(login)) {
+                    client.regFail("Login is busy");
+                } else if (SqlClient.isBusyNickame(nick)) {
+                    client.regFail("Nickname is busy");
+                } else {
+                    if(SqlClient.addNewUser(login, password, arr[3])>0) {
+                        client.authAccept(nick);
+                        sendToAuthClients(Library.getTypeBroadcast("Server", nick + " connected"));
+                        sendToAuthClients(Library.getUserList(getUsers()));
+                    }
+                    else putLog("Failed Register new user attemp at "+client);
+                }
             } else {
-                oldClient.reconnect();
-                clients.remove(oldClient);
+                putLog("Invalid login attempt: " + login);
+                client.authFail();
+                return;
             }
+        } else {
+            if (arr[0].equals(Library.REG_REQUEST)) {
+                client.regFail("User with login " + login + " already exist");
+                return;
+            } else {
+                ClientThread oldClient = findClientByNickname(nickname);
+                client.authAccept(nickname);
+                if (oldClient == null) {
+                    sendToAuthClients(Library.getTypeBroadcast("Server", nickname + " connected"));
+                } else {
+                    oldClient.reconnect();
+                    clients.remove(oldClient);
+                }
 
+                sendToAuthClients(Library.getUserList(getUsers()));
+
+            }
         }
-        sendToAuthClients(Library.getUserList(getUsers()));
     }
 
     private void handleAuthMessage(ClientThread client, String msg) {
@@ -206,6 +227,15 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             case Library.TYPE_BCAST_CLIENT:
                 sendToAuthClients(Library.getTypeBroadcast(
                         client.getNickname(), arr[1]));
+                break;
+            case Library.RENAMING_REQUEST:
+                if (SqlClient.isBusyNickame(arr[1])) client.renFail("Nickname is busy");
+                else {
+                    if (SqlClient.setNickname(client.getNickname(), arr[1])!=0) {
+                        client.renAccept(arr[1]);
+                        sendToAuthClients(Library.getUserList(getUsers()));
+                    } else client.renFail("Something goes wrong with DB");
+                }
                 break;
             default:
                 client.sendMessage(Library.getMsgFormatError(msg));
