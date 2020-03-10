@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ServerGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, ChatServerListener {
 
@@ -16,6 +18,7 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
     private static final int HEIGHT = 300;
 
     private final ChatServer chatServer = new ChatServer(this);
+    ExecutorService executor = Executors.newCachedThreadPool();
     private final JButton btnStart = new JButton("Start");
     private final JButton btnStop = new JButton("Stop");
     private final JPanel panelTop = new JPanel(new GridLayout(1, 2));
@@ -42,7 +45,6 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
         JScrollPane scrollLog = new JScrollPane(log);
         btnStart.addActionListener(this);
         btnStop.addActionListener(this);
-
         panelTop.add(btnStart);
         panelTop.add(btnStop);
         add(panelTop, BorderLayout.NORTH);
@@ -56,9 +58,11 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
         Object src = e.getSource();
         if (src == btnStart) {
             chatServer.start(8189);
+            executor.submit(chatServer::checkActivity);
         } else if (src == btnStop) {
 //            throw new RuntimeException("Hello from EDT");
-            chatServer.stop();
+//            chatServer.stop();
+            executor.shutdown();
         } else {
             throw new RuntimeException("Unknown source: " + src);
         }
@@ -83,4 +87,6 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
             log.setCaretPosition(log.getDocument().getLength());
         });
     }
+
+
 }

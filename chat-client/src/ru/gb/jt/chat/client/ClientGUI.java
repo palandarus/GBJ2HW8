@@ -72,6 +72,7 @@ public class ClientGUI extends JFrame implements ActionListener, ListSelectionLi
         JScrollPane scrollLog = new JScrollPane(log);
         JScrollPane scrollUser = new JScrollPane(userList);
         scrollUser.setPreferredSize(new Dimension(100, 0));
+        cbAlwaysOnTop.setSelected(true);
         btnLogin.setPreferredSize(new Dimension(100, 0));
         btnRegister.setPreferredSize(new Dimension(100, 0));
         cbAlwaysOnTop.addActionListener(this);
